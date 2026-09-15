@@ -16,8 +16,7 @@ export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): 
 
   const response = await fetch(url, { 
     ...options, 
-    headers,
-    credentials: 'include' // Required for AI Studio proxy authentication
+    headers
   });
   
   const text = await response.text();

@@ -30,6 +30,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       
       logger.info('Login response received', { responseData: data });
       localStorage.setItem('access_token', data.accessToken);
+      if (data.refreshToken) {
+        localStorage.setItem('refresh_token', data.refreshToken);
+      }
       logger.info('Access token stored in localStorage');
       
       analytics.trackEvent('Auth', 'Login', data.user.roleKey);

@@ -83,6 +83,7 @@ export const login = async (req: Request, res: Response) => {
       success: true,
       data: {
         accessToken,
+        refreshToken,
         user: {
           id: user._id,
           name: user.name,

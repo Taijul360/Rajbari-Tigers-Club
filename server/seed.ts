@@ -118,6 +118,16 @@ const runSeed = async () => {
       roleKey: "super_admin",
       memberStatus: "active"
     }, { upsert: true });
+    
+    console.log("🛡️ Seeding Admin...");
+    const adminPasswordHash = await bcrypt.hash("admin123", 12);
+    await User.findOneAndUpdate({ phone: "+8801800000000" }, {
+      name: { bn: "অ্যাডমিন", en: "Admin" },
+      phone: "+8801800000000",
+      passwordHash: adminPasswordHash,
+      roleKey: "admin",
+      memberStatus: "active"
+    }, { upsert: true });
 
     // 4. Sample Content
     console.log("📝 Seeding Sample Tournaments and Projects...");
