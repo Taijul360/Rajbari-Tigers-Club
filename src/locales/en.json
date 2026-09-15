@@ -1,0 +1,18 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "tournaments": "Tournaments",
+    "projects": "Projects",
+    "notices": "Notice Board",
+    "blood_donors": "Blood Donors"
+  },
+  "home": {
+    "members_count": "Members",
+    "tournaments_count": "Tournaments Held",
+    "projects_count": "Projects Completed"
+  }
+}

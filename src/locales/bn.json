@@ -1,0 +1,18 @@
+{
+  "common": {
+    "loading": "লোড হচ্ছে...",
+    "error": "একটি ত্রুটি ঘটেছে",
+    "home": "নীড়পাতা",
+    "login": "লগইন",
+    "register": "রেজিস্টার",
+    "tournaments": "টুর্নামেন্টসমূহ",
+    "projects": "প্রকল্পসমূহ",
+    "notices": "নোটিশ বোর্ড",
+    "blood_donors": "রক্তদাতা"
+  },
+  "home": {
+    "members_count": "সদস্য সংখ্যা",
+    "tournaments_count": "আয়োজিত টুর্নামেন্ট",
+    "projects_count": "সম্পন্ন প্রকল্প"
+  }
+}

@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-tiger-navy: var(--theme-tiger-navy);
+  --color-tiger-royal: var(--theme-tiger-royal);
+  --color-tiger-orange: var(--theme-tiger-orange);
+  --color-tiger-gold: var(--theme-tiger-gold);
+  --color-bone: var(--theme-bone);
+  --color-ink: var(--theme-ink);
+
+  --font-bangla: var(--theme-font-bangla), sans-serif;
+  --font-english: var(--theme-font-english), sans-serif;
+  --font-body: var(--theme-font-body), sans-serif;
+  --font-archivo: 'Archivo', sans-serif;
+
+  --radius-xs: 0px;
+  --radius-sm: var(--theme-radius-scale);
+  --radius-md: var(--theme-radius-scale);
+  --radius-lg: calc(var(--theme-radius-scale) * 2);
+}
+
+@layer base {
+  :root {
+    --theme-tiger-navy: #0A2148;
+    --theme-tiger-royal: #1656B8;
+    --theme-tiger-orange: #F5821F;
+    --theme-tiger-gold: #FFC233;
+    --theme-bone: #F7F4EF;
+    --theme-ink: #101418;
+    --theme-font-bangla: 'Baloo Da 2';
+    --theme-font-english: 'Archivo Expanded';
+    --theme-font-body: 'Hind Siliguri';
+    --theme-radius-scale: 6px;
+  }
+
+  body {
+    @apply bg-bone text-ink font-body antialiased selection:bg-tiger-orange selection:text-bone;
+  }
+  
+  .dark body {
+    @apply bg-ink text-bone;
+  }
+
+  /* Structural rule for the "tiger stripe" divider */
+  .tiger-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-tiger-orange) 30%, var(--color-tiger-navy) 30%, var(--color-tiger-navy) 35%, var(--color-tiger-orange) 35%, var(--color-tiger-orange) 80%, var(--color-tiger-gold) 80%);
+  }
+}
+
