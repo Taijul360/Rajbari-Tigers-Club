@@ -20,7 +20,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isLoading: false,
   
   login: async (credentials) => {
-    logger.info('Login attempt initiated', { phone: credentials.phone, hasOtp: !!credentials.otp });
+    logger.info('Login attempt initiated', { payload: credentials });
     set({ isLoading: true });
     try {
       const data = await fetchApi<any>('/auth/login', {
@@ -28,7 +28,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         body: JSON.stringify(credentials)
       });
       
-      logger.info('Login response received', { success: true, userId: data.user.id, role: data.user.roleKey });
+      logger.info('Login response received', { responseData: data });
       localStorage.setItem('access_token', data.accessToken);
       logger.info('Access token stored in localStorage');
       

@@ -20,8 +20,17 @@ export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): 
     credentials: 'include' // Required for AI Studio proxy authentication
   });
   
-  // Note: Handle 401 Unauthorized for refresh token logic later
-  const data = await response.json();
+  const text = await response.text();
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch (err) {
+    const lowerText = text.trim().toLowerCase();
+    if (lowerText.startsWith('<html') || lowerText.includes('<html') || lowerText.includes('cookie_check')) {
+      throw new Error("ব্রাউজার কুকি ব্লক করেছে। দয়া করে অ্যাপটি 'নতুন ট্যাবে' (New Tab) ওপেন করুন (উপরের ডানের আইকনে ক্লিক করে)।");
+    }
+    throw new Error('সার্ভার থেকে সঠিক ডাটা আসেনি।');
+  }
   
   if (!response.ok || !data.success) {
     throw new Error(data.error?.message || 'API Request failed');

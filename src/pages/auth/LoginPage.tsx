@@ -21,8 +21,6 @@ export default function LoginPage() {
       if (err.message === '2FA OTP required for Super Admin') {
         setShowOtp(true);
         setError('সুপার এডমিন লগইনের জন্য 2FA OTP প্রয়োজন (Mock: 123456)');
-      } else if (err.message.includes('Unexpected token')) {
-        setError('সার্ভার থেকে সঠিক ডাটা আসেনি। অনুগ্রহ করে আবার চেষ্টা করুন।');
       } else {
         setError(err.message || 'লগইন ব্যর্থ হয়েছে');
       }
