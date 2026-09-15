@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { fetchApi } from '../lib/api/client';
 import { Role } from '../shared/types';
+import { logger } from '../lib/logger';
+import { analytics } from '../lib/analytics';
 
 interface AuthState {
   user: any | null;
@@ -18,21 +20,31 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isLoading: false,
   
   login: async (credentials) => {
+    logger.info('Login attempt initiated', { phone: credentials.phone, hasOtp: !!credentials.otp });
     set({ isLoading: true });
     try {
       const data = await fetchApi<any>('/auth/login', {
         method: 'POST',
         body: JSON.stringify(credentials)
       });
+      
+      logger.info('Login response received', { success: true, userId: data.user.id, role: data.user.roleKey });
       localStorage.setItem('access_token', data.accessToken);
+      logger.info('Access token stored in localStorage');
+      
+      analytics.trackEvent('Auth', 'Login', data.user.roleKey);
+      
       set({ user: data.user, isLoading: false });
-    } catch (error) {
+    } catch (error: any) {
+      logger.error('Login failed', error, { phone: credentials.phone });
       set({ isLoading: false });
       throw error;
     }
   },
   
   logout: () => {
+    logger.info('User logged out');
+    analytics.trackEvent('Auth', 'Logout');
     localStorage.removeItem('access_token');
     set({ user: null });
   },

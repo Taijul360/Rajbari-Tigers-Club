@@ -12,6 +12,8 @@ import { PermissionGuard } from './components/PermissionGuard';
 import { HeaderSearch } from './components/HeaderSearch';
 import { NotificationCenter } from './components/NotificationCenter';
 import { PWAInstallButton } from './components/PWAInstallButton';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { analytics } from './lib/analytics';
 import { useDrag } from '@use-gesture/react';
 import { useState, useEffect } from 'react';
 
@@ -33,7 +35,9 @@ import ApplicationsPage from './pages/admin/ApplicationsPage';
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <ErrorBoundary>
+        <AppContent />
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }
@@ -68,6 +72,11 @@ function AppContent() {
       setIsDark(true);
     }
   }, []);
+
+  useEffect(() => {
+    // Track page views on route change
+    analytics.trackPageView(location.pathname);
+  }, [location.pathname]);
 
   const bindGestures = useDrag(({ swipe: [swipeX], direction: [dirX], active, cancel }) => {
     // Only process when swipe is finished and we're not touching an element that scrolls horizontally
